@@ -1,0 +1,21 @@
+import sqlite3
+
+class DataAccess: def init(self, db_file): self.conn = sqlite3.connect(db_file) self.cursor = self.conn.cursor() self.create_table()
+
+def create_table(self):
+    self.cursor.execute('''CREATE TABLE IF NOT EXISTS trabajadores (
+                            id INTEGER PRIMARY KEY,
+                            nombre TEXT,
+                            apellidos TEXT,
+                            sueldo_bruto REAL,
+                            categoria TEXT)''')
+    self.conn.commit()
+
+def insert_trabajador(self, nombre, apellidos, sueldo_bruto, categoria):
+    self.cursor.execute('''INSERT INTO trabajadores (nombre, apellidos, sueldo_bruto, categoria)
+                            VALUES (?, ?, ?, ?)''', (nombre, apellidos, sueldo_bruto, categoria))
+    self.conn.commit()
+
+def fetch_all_trabajadores(self):
+    self.cursor.execute('''SELECT * FROM trabajadores''')
+    return self.cursor.fetchall()  
